@@ -22,7 +22,7 @@ public class Dispatcher {
 	}
 	
 	public void createNewProcess(String pName){
-		
+		Process process = new ProcessFactory().createProcess(pName);
 	}
 	
 	
