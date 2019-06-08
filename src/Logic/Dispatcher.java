@@ -21,16 +21,45 @@ public class Dispatcher {
 		
 	}
 	
+	
 	public void createNewProcess(String pName){
 		Process process = new ProcessFactory().createProcess(pName);
+		int calcultion = this.memoryCalcultion(process.memoryUse);
 		
-		if(running.size() < 3){
-			running.add(process);
+		if(calcultion < 40){
+			
+			if(running.size() < 2){
+				
+				running.add(process);
+			
+			}else{
+					
+				readyQueue.add(process);
+					
+			}
+			
+		}else{
+			
+			readySuspendedQueue.add(process);
 		}
+	}
+	
+	//Cambiar como es la suma por el size(0) empieza de cero
+	private int memoryCalcultion(int processSize){
+		int temp;
+		int memorySize = memory.size();
+		temp = memorySize + processSize;
+		return temp;
+		
+	}
+	
+	private void addMemory(int processSize){
+		int temp;
 	}
 	
 	
 	public static void main(String[] args) {
+		 
 		Process x = new ProcessB();
 		long startTime = System.nanoTime();
 		x.realizeProcess();
@@ -38,6 +67,7 @@ public class Dispatcher {
 
 		long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
 		System.out.println(duration);
+		
     }
 	
 }
