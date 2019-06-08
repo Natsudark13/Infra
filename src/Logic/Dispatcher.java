@@ -6,9 +6,11 @@ public class Dispatcher {
 	private ArrayList<String> memory ;
 	private ArrayList<Process> running;
 	private ArrayList<Process> readyQueue;
-	private ArrayList<Process> readySuspendedQueue;
+	//private ArrayList<Process> readySuspendedQueue;
 	private ArrayList<Process> blockedQueue; 
-	private ArrayList<Process> blockedSuspendedQueue;
+	//private ArrayList<Process> blockedSuspendedQueue;
+	private Recurso recurso1;
+	private Recurso recurso2;
 
 	//Se crean las listas de espera del dispatcher de 5 estados
 	public Dispatcher(){
@@ -18,6 +20,8 @@ public class Dispatcher {
 		this.readySuspendedQueue = new ArrayList<Process>(); 
 		this.blockedQueue = new ArrayList<Process>(); 
 		this.blockedSuspendedQueue = new ArrayList<Process>(); 
+		this.recurso1 = new recurso();
+		this.recurso2 = new recurso();
 		
 	}
 	
@@ -27,6 +31,7 @@ public class Dispatcher {
 		Process process = new ProcessFactory().createProcess(pName);
 		int calcultion = this.memoryCalcultion(process.memoryUse);
 		
+		//Si el pName es igual a B hay que hacer otro if para ver los recursos y usar el semaforo
 		if(calcultion < 40){//reparar
 			
 			if(running.size() < 2){
@@ -40,7 +45,7 @@ public class Dispatcher {
 			
 		}else{
 			
-			readySuspendedQueue.add(process);
+			blockedQueue.add(process);
 		}
 	}
 	
@@ -66,13 +71,16 @@ public class Dispatcher {
 	
 	
 	public static void main(String[] args) {
-		 
+		int xx = 0;
 		Process x = new ProcessB();
 		long startTime = System.nanoTime();
+		while(xx != 1000000){
 		x.realizeProcess();
+		xx++;
+		}
 		long endTime = System.nanoTime();
 
-		long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+		long duration = ((endTime - startTime)/1000000);  //divide by 1000000 to get milliseconds.
 		System.out.println(duration);
 		
     }
