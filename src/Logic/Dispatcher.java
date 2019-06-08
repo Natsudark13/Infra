@@ -23,6 +23,10 @@ public class Dispatcher {
 	
 	public void createNewProcess(String pName){
 		Process process = new ProcessFactory().createProcess(pName);
+		
+		if(running.size() < 3){
+			running.add(process);
+		}
 	}
 	
 	
