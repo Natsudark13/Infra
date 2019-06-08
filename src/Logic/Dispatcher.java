@@ -27,12 +27,11 @@ public class Dispatcher {
 		Process process = new ProcessFactory().createProcess(pName);
 		int calcultion = this.memoryCalcultion(process.memoryUse);
 		
-		if(calcultion < 40){
+		if(calcultion < 40){//reparar
 			
 			if(running.size() < 2){
 				
 				running.add(process);
-			
 			}else{
 					
 				readyQueue.add(process);
@@ -45,6 +44,7 @@ public class Dispatcher {
 		}
 	}
 	
+	
 	//Se hace el calculo si la cola de la memoria esta llena o no
 	private int memoryCalcultion(int processSize){
 		int temp;
@@ -54,8 +54,14 @@ public class Dispatcher {
 		
 	}
 	
+	
 	private void addMemory(int processSize){
-		int temp;
+		
+		int temp = 0;
+		while(temp != processSize){
+			memory.add("Used");
+			temp++;
+		}
 	}
 	
 	
