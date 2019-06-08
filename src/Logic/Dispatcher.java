@@ -21,7 +21,8 @@ public class Dispatcher {
 		
 	}
 	
-	
+	//Creates a new process, if the memory queque is full the process goes to the readySuspendedQueue, else if the running queque is full the process
+	//goes to readyQueue and if there is not a problem with memory and running queque the process goes to the running queque
 	public void createNewProcess(String pName){
 		Process process = new ProcessFactory().createProcess(pName);
 		int calcultion = this.memoryCalcultion(process.memoryUse);
@@ -44,10 +45,10 @@ public class Dispatcher {
 		}
 	}
 	
-	//Cambiar como es la suma por el size(0) empieza de cero
+	//Se hace el calculo si la cola de la memoria esta llena o no
 	private int memoryCalcultion(int processSize){
 		int temp;
-		int memorySize = memory.size();
+		int memorySize = memory.size() - 1 ;
 		temp = memorySize + processSize;
 		return temp;
 		
