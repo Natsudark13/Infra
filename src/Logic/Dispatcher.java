@@ -21,4 +21,19 @@ public class Dispatcher {
 		
 	}
 	
+	public void createNewProcess(String pName){
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		Process x = new ProcessB();
+		long startTime = System.nanoTime();
+		x.realizeProcess();
+		long endTime = System.nanoTime();
+
+		long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+		System.out.println(duration);
+    }
+	
 }
