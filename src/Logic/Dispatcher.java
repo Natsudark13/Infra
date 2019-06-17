@@ -61,12 +61,40 @@ public class Dispatcher {
 	
 	private void addMemory(int processSize){
 		
+<<<<<<< Updated upstream
 		int temp = 0;
 		while(temp != processSize){
 			memory.add("Used");
 			temp++;
 		}
 		
+=======
+		memory = memory + processSize;
+		
+	}
+	
+	private void freeMemory(int processSize){
+			
+		memory = memory - processSize;
+		
+		}
+	
+	//Metodo auxilar para saber cuanto espacio ocupado tiene la memoria 
+	private int addPriority(){
+		switch(running.size()) {
+		  case 0:
+		    
+			  return 1;
+		    
+		  case 1:
+			  
+			  return 2;
+			  
+		  case 2:
+			  
+			  return 3;
+		}
+>>>>>>> Stashed changes
 	}
 	
 	
