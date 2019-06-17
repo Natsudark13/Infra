@@ -1,6 +1,7 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Dispatcher {
 	private int memory ;
@@ -11,6 +12,7 @@ public class Dispatcher {
 	private Recurso recurso2;
 	int semCount;
 	ArrayList<Process> semQueue;
+	static Timer timer;
 
 	//Se crean las listas de espera del dispatcher de 5 estados
 	public Dispatcher(){
@@ -25,9 +27,17 @@ public class Dispatcher {
 		
 	}
 	
+	
+	public void runProcess(){
+		Process process = running.get(0);
+		process.run();
+		freeProcess();
+	}
+	
+	
 	//Creates a new process, if the memory queque is full the process goes to the blockedQueue, else if the running queque is full the process
 	//goes to readyQueue and if there is not a problem with memory and running queque the process goes to the running queque
-	public void createNewProcess(String pName){
+	public Process createNewProcess(String pName){
 		Process process = new ProcessFactory().createProcess(pName);
 		int calcultion = this.memoryCalcultion(process.getMemoryUse());
 		
@@ -38,22 +48,28 @@ public class Dispatcher {
 				
 				running.add(process);
 				addMemory(process.getMemoryUse());
-				process.setPriority(addPriority());
+				process.setState("Running");
+				return process;
 				
 			}else{
 					
 				readyQueue.add(process);
-					
+				process.setState("Ready");
+				return process;
 			}
 			
 		}else{
 			
 			blockedQueue.add(process);
+			process.setState("Blocked");
+			return process;
 		}
 	}
 	
-	public void freeProcess(String pName){
+	public void freeProcess(){
+		
 		//Hacer metodo LRU
+		
 		int index = 0;
 		
 		freeMemory(running.get(index).getMemoryUse());
@@ -65,7 +81,7 @@ public class Dispatcher {
 		if(readyQueue.isEmpty() == false){
 			int cont = 0;
 			
-			while(readyQueue.size() != cont){
+			while(readyQueue.size() != cont & running.size() < 3){
 		
 			Process process = readyQueue.get(cont);
 			int calcultion = this.memoryCalcultion(process.getMemoryUse());
@@ -73,10 +89,13 @@ public class Dispatcher {
 			if(calcultion <= 40){
 				running.add(process);
 				addMemory(process.getMemoryUse());
-				process.setPriority(addPriority());
+				process.setState("Running");
+				readyQueue.remove(cont);
+				runProcess();
 				break;
 			}else{
 				blockedQueue.add(process);
+				process.setState("Blocked");
 				readyQueue.remove(cont);
 				}
 			
@@ -89,15 +108,17 @@ public class Dispatcher {
 			if(blockedQueue.isEmpty() == false){
 				int cont = 0;
 				
-				while(blockedQueue.size() != cont){
+				while(blockedQueue.size() != cont & running.size() < 3){
 			
-				Process process = readyQueue.get(cont);
+				Process process = blockedQueue.get(cont);
 				int calcultion = this.memoryCalcultion(process.getMemoryUse());
 				
 				if(calcultion <= 40){
 					running.add(process);
 					addMemory(process.getMemoryUse());
-					process.setPriority(addPriority());
+					process.setState("Running");
+					blockedQueue.remove(cont);
+					runProcess();
 					break ;
 				}else{
 					cont++;
@@ -131,7 +152,7 @@ public class Dispatcher {
 	}
 	
 	//Metodo auxilar para saber cuanto espacio ocupado tiene la memoria 
-	private int addPriority(){
+	/*private int addPriority(){
 		int temp = 0;
 		switch(running.size()) {
 		  case 0:
@@ -147,7 +168,7 @@ public class Dispatcher {
 			  temp = 3;
 		}
 		return temp;
-	}
+	}*/
 	
 	//semaforo
 	void semWait(Process p)
