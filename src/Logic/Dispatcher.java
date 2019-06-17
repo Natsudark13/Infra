@@ -10,22 +10,20 @@ public class Dispatcher {
 	private ArrayList<Process> blockedQueue; 
 	//private ArrayList<Process> blockedSuspendedQueue;
 	private Recurso recurso1;
-	private Recurso recurso2;
 
 	//Se crean las listas de espera del dispatcher de 5 estados
 	public Dispatcher(){
 		this.memory = new ArrayList<String>(40); 
 		this.running  = new ArrayList<Process>(3); 
 		this.readyQueue = new ArrayList<Process>(); 
-		this.readySuspendedQueue = new ArrayList<Process>(); 
+		//this.readySuspendedQueue = new ArrayList<Process>(); 
 		this.blockedQueue = new ArrayList<Process>(); 
-		this.blockedSuspendedQueue = new ArrayList<Process>(); 
-		this.recurso1 = new recurso();
-		this.recurso2 = new recurso();
+		//this.blockedSuspendedQueue = new ArrayList<Process>(); 
+		this.recurso1 = new Recurso();
 		
 	}
 	
-	//Creates a new process, if the memory queque is full the process goes to the readySuspendedQueue, else if the running queque is full the process
+	//Creates a new process, if the memory queque is full the process goes to the blockedQueue, else if the running queque is full the process
 	//goes to readyQueue and if there is not a problem with memory and running queque the process goes to the running queque
 	public void createNewProcess(String pName){
 		Process process = new ProcessFactory().createProcess(pName);
@@ -50,6 +48,7 @@ public class Dispatcher {
 	}
 	
 	
+	
 	//Se hace el calculo si la cola de la memoria esta llena o no
 	private int memoryCalcultion(int processSize){
 		int temp;
@@ -67,7 +66,10 @@ public class Dispatcher {
 			memory.add("Used");
 			temp++;
 		}
+		
 	}
+	
+	
 	
 	
 	public static void main(String[] args) {
