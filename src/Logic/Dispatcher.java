@@ -10,7 +10,7 @@ public class Dispatcher {
 	private ArrayList<Process> blockedQueue; 
 	//private ArrayList<Process> blockedSuspendedQueue;
 	private Recurso recurso1;
-
+	private Recurso recurso2;
 	//Se crean las listas de espera del dispatcher de 5 estados
 	public Dispatcher(){
 		this.memory = new ArrayList<String>(40); 
@@ -20,6 +20,7 @@ public class Dispatcher {
 		this.blockedQueue = new ArrayList<Process>(); 
 		//this.blockedSuspendedQueue = new ArrayList<Process>(); 
 		this.recurso1 = new Recurso();
+		this.recurso2 = new Recurso();
 		
 	}
 	
