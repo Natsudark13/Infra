@@ -5,6 +5,8 @@ public abstract class Process {
 	protected int memoryUse;
 	protected int ID;
 	protected String type;
+	protected int priority;
+	
 	public abstract int realizeProcess();
 
 	public int getMemoryUse() {
@@ -29,6 +31,14 @@ public abstract class Process {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 	
 	
