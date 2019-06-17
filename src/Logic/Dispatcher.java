@@ -46,7 +46,14 @@ public class Dispatcher {
 			
 			if(running.size() < 2){
 				
+				if(process.getType().equals("B")) {
+					semWait(process);
+					semSignal(process);
+					return process;		
+				}
+				
 				running.add(process);
+				runProcess();
 				addMemory(process.getMemoryUse());
 				process.setState("Running");
 				return process;
@@ -180,7 +187,9 @@ public class Dispatcher {
 			/*block this process */;
 		}
 		running.add(p);
+		runProcess();
 		addMemory(p.memoryUse);
+		p.setState("Running");
 		//se ejecuta el proceso/
 		
 	}
@@ -198,18 +207,7 @@ public class Dispatcher {
 	
 	
 	public static void main(String[] args) {
-		int xx = 0;
-		Process x = new ProcessB();
-		long startTime = System.nanoTime();
-		while(xx != 1000000){
-		x.realizeProcess();
-		xx++;
-		}
-		long endTime = System.nanoTime();
-
-		long duration = ((endTime - startTime)/1000000);  //divide by 1000000 to get milliseconds.
-		System.out.println(duration);
-		
+				
     }
 	
 }
