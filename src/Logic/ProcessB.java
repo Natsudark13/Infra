@@ -6,7 +6,7 @@ public class ProcessB extends Process{
 	public ProcessB(){
 		
 		this.memoryUse = 2;
-		
+		this.type = "B";
 	}
 	
 	@Override
