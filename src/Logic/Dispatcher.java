@@ -44,12 +44,13 @@ public class Dispatcher {
 		//Si el pName es igual a B hay que hacer otro if para ver los recursos y usar el semaforo
 		if(calcultion <= 40){//reparar
 			
-			if(running.size() < 2){
+			if(running.size() <= 2){
 				
+				/*
 				if(process.getType().equals("B")) {
 					semWait(process);
 					semSignal(process);		
-				}
+				}*/
 				
 				running.add(process);
 				addMemory(process.getMemoryUse());
