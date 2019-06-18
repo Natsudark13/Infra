@@ -78,6 +78,7 @@ public class Dispatcher {
 		int index = 0;
 		
 		freeMemory(running.get(index).getMemoryUse());
+		running.get(index).setState("Finish");
 		running.remove(index);
 		
 	}
