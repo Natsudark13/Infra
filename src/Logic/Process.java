@@ -6,6 +6,7 @@ public abstract class Process {
 	protected int ID;
 	protected String type;
 	protected int priority;
+	protected String state;
 	
 	public abstract int realizeProcess();
 
@@ -40,6 +41,15 @@ public abstract class Process {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 	
 	
 }

@@ -6,10 +6,11 @@ public class Dispatcher {
 	private int memory ;
 	private ArrayList<Process> running;
 	private ArrayList<Process> readyQueue;
-	//private ArrayList<Process> readySuspendedQueue;
 	private ArrayList<Process> blockedQueue; 
-	//private ArrayList<Process> blockedSuspendedQueue;
 	private Recurso recurso1;
+	private Recurso recurso2;
+	int semCount;
+	ArrayList<Process> semQueue;
 
 	//Se crean las listas de espera del dispatcher de 5 estados
 	public Dispatcher(){
@@ -20,6 +21,7 @@ public class Dispatcher {
 		this.blockedQueue = new ArrayList<Process>(); 
 		//this.blockedSuspendedQueue = new ArrayList<Process>(); 
 		this.recurso1 = new Recurso();
+		this.recurso2 = new Recurso();
 		
 	}
 	
@@ -147,7 +149,31 @@ public class Dispatcher {
 		return temp;
 	}
 	
-	
+	//semaforo
+	void semWait(Process p)
+	{
+		semCount--;
+		if (semCount < 0){
+			/*place this process in s.queue */;
+			semQueue.add(p)
+			/*block this process */;
+		}
+		running.add(p);
+		addMemory(p.memoryUse);
+		//se ejecuta el proceso/
+		
+	}
+	void semSignal(Process p)
+	{
+		semCount++;
+		if (semCount <=0){
+			int index = semQueue.size()-1;
+			readyQueue.add(semQueue.get(index));
+			semQueue.remove(index);
+			/*remove a process P from semQueue */;
+			/*place process P on ready list */;
+		}
+	}
 	
 	
 	public static void main(String[] args) {
