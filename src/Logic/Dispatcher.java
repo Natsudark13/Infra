@@ -80,13 +80,15 @@ public class Dispatcher {
 		freeMemory(running.get(index).getMemoryUse());
 		running.remove(index);
 		
-		
+	}
+	
+	public void seeReady(){
 		//
 		
 		if(readyQueue.isEmpty() == false){
 			int cont = 0;
 			
-			while(readyQueue.size() != cont & running.size() < 3){
+			while(readyQueue.size() != cont & running.size() <= 2){
 		
 			Process process = readyQueue.get(cont);
 			int calcultion = this.memoryCalcultion(process.getMemoryUse());
@@ -96,7 +98,9 @@ public class Dispatcher {
 				addMemory(process.getMemoryUse());
 				process.setState("Running");
 				readyQueue.remove(cont);
-				runProcess();
+				new Thread(() -> {
+                    runProcess();
+                }).start();		
 				break;
 			}else{
 				blockedQueue.add(process);
@@ -108,12 +112,16 @@ public class Dispatcher {
 			
 			}
 			
-		}else{
+		}
+	}
+	
+	
+     public void seeBlocked(){
 			
 			if(blockedQueue.isEmpty() == false){
 				int cont = 0;
 				
-				while(blockedQueue.size() != cont & running.size() < 3){
+				while(blockedQueue.size() != cont & running.size() <= 2){
 			
 				Process process = blockedQueue.get(cont);
 				int calcultion = this.memoryCalcultion(process.getMemoryUse());
@@ -123,7 +131,9 @@ public class Dispatcher {
 					addMemory(process.getMemoryUse());
 					process.setState("Running");
 					blockedQueue.remove(cont);
-					runProcess();
+					new Thread(() -> {
+	                    runProcess();
+	                }).start();		
 					break ;
 				}else{
 					cont++;
@@ -133,7 +143,6 @@ public class Dispatcher {
 			}
 		}
 			
-	}
 	
 	//Se hace el calculo si la cola de la memoria esta llena o no
 	private int memoryCalcultion(int processSize){
