@@ -91,7 +91,7 @@ public class Dispatcher {
 				addMemory(process.getMemoryUse());
 				process.setState("Running");
 				readyQueue.remove(cont);
-				runProcess2();
+				runProcess();
 				break;
 			}else{
 				blockedQueue.add(process);
@@ -118,6 +118,7 @@ public class Dispatcher {
 					addMemory(process.getMemoryUse());
 					process.setState("Running");
 					blockedQueue.remove(cont);
+					runProcess();
 					break ;
 				}else{
 					cont++;
