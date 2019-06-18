@@ -7,6 +7,7 @@ public class ProcessB extends Process{
 		super();
 		this.memoryUse = 2;
 		this.type = "B";
+		this.processTime = 50;
 	}
 	
 	@Override

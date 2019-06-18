@@ -49,6 +49,7 @@ public class Dispatcher {
 				running.add(process);
 				addMemory(process.getMemoryUse());
 				process.setState("Running");
+				runProcess();
 				return process;
 				
 			}else{
