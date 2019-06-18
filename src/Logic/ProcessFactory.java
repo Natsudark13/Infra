@@ -1,19 +1,22 @@
 package Logic;
 
 public class ProcessFactory {
-	
-	public Process createProcess(String type){
-		Process x;
-		if(type.equals("A")){
-			x = new ProcessA();
-		}
-		if(type.equals("B")){
-			x = new ProcessB();
-		}
-		else{
-			x = new ProcessC();
-		}
-		return x;
-	}
+
+    public Process createProcess(String type) {
+        Process x;
+        switch (type) {
+            case "A":
+                x = new ProcessA();
+                break;
+            case "B":
+                x = new ProcessB();
+                break;
+            default:
+                x = new ProcessC();
+                break;
+        }
+        return x;
+    }
 
 }
+
