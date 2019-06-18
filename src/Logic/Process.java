@@ -4,12 +4,19 @@ public abstract class Process {
 
 	protected int memoryUse;
 	protected int ID;
+	private static int IDCounter;
 	protected String type;
 	protected int priority;
 	protected String state;
+	protected int processTime;
 	
 	public abstract int realizeProcess();
 
+	public Process(){
+		this.ID = IDCounter + 1;
+		IDCounter++;
+	}
+	
 	public int getMemoryUse() {
 		return memoryUse;
 	}
@@ -48,6 +55,14 @@ public abstract class Process {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public int getProcessTime() {
+		return processTime;
+	}
+
+	public void setProcessTime(int processTime) {
+		this.processTime = processTime;
 	}
 	
 	
