@@ -4,10 +4,10 @@ public class ProcessFactory {
 	
 	public Process createProcess(String type){
 		Process x;
-		if(type == "A"){
+		if(type.equals("A") ){
 			x = new ProcessA();
 		}
-		if(type == "B"){
+		if(type.equals("B")){
 			x = new ProcessB();
 		}
 		else{
