@@ -77,17 +77,18 @@ public class Dispatcher {
 		
 		int index = 0;
 		
-		if(running.get(index).getType().equals("C")){
-			if(running.size() > 1){
-				if((running.get(index+1).getType().equals("C"))){
-					index = 2;
-				}
-				
-			}else{
-				index++;
+		if(running.get(0).getType().equals("C")){
+			index = 1;
+		}
+		
+		if(running.size() > 1){
+			if((running.get(1).getType().equals("C"))){
+				index = 2;
 			}
 		}
-			
+		
+		
+		
 		freeMemory(running.get(index).getMemoryUse());
 		running.get(index).setState("Finish");
 		running.remove(index);
