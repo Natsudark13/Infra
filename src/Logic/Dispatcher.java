@@ -48,29 +48,26 @@ public class Dispatcher {
 				
 				if(process.getType().equals("B")) {
 					semWait(process);
-					semSignal(process);
-					return process;		
+					semSignal(process);		
 				}
 				
 				running.add(process);
 				addMemory(process.getMemoryUse());
 				process.setState("Running");
-				runProcess();
-				return process;
-				
+                new Thread(() -> {
+                    runProcess();
+                }).start();		
 			}else{
-					
 				readyQueue.add(process);
 				process.setState("Ready");
-				return process;
 			}
 			
 		}else{
 			
 			blockedQueue.add(process);
 			process.setState("Blocked");
-			return process;
 		}
+		return process;
 	}
 	
 	public void freeProcess(){
@@ -189,7 +186,9 @@ public class Dispatcher {
 		running.add(p);
 		addMemory(p.memoryUse);
 		p.setState("Running");
-		runProcess();
+        new Thread(() -> {
+            runProcess();
+        }).start();
 		//se ejecuta el proceso/
 		
 	}
