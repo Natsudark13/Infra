@@ -10,12 +10,18 @@ public class ProcessA extends Process{
 	}
 	
 	@Override
-	public int realizeProcess() {
-		int counter = 0;
-		while(counter != 20000){
-			counter++;
-		}
-		return 1;
-	}
-	
+	public void run() {
+		 try {
+	        	counter = 0;
+	    		while(counter != 20000){
+	    			counter++;
+	    			
+	    		}
+	            Thread.sleep(20000);
+	            System.out.println("counter : " + counter);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+	    } 
+
 }

@@ -1,17 +1,19 @@
 package Logic;
 
-public abstract class Process {
+import java.util.TimerTask;
+
+public abstract class Process extends TimerTask {
 
 	protected int memoryUse;
 	protected int ID;
 	private static int IDCounter;
 	protected String type;
-	protected int priority;
+	protected int counter;
 	protected String state;
 	protected int processTime;
 	
-	public abstract int realizeProcess();
-
+	//public abstract int realizeProcess();
+	
 	public Process(){
 		this.ID = IDCounter + 1;
 		IDCounter++;
@@ -39,14 +41,6 @@ public abstract class Process {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public int getPriority() {
-		return priority;
-	}
-
-	public void setPriority(int priority) {
-		this.priority = priority;
 	}
 
 	public String getState() {

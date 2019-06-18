@@ -10,12 +10,13 @@ public ProcessC(){
 	}
 	
 	@Override
-	public int realizeProcess() {
-		int counter = 0;
+	public void  run() {
+		counter = 0;
 		while(counter != 50){
 			counter++;
+			System.out.println("counter : " + counter);
 			counter--;
 		}
-		return 1;
+		//return 1;
 	}
 }

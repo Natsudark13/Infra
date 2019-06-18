@@ -1,6 +1,7 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Dispatcher {
 	private int memory ;
@@ -11,6 +12,7 @@ public class Dispatcher {
 	private Recurso recurso2;
 	int semCount;
 	ArrayList<Process> semQueue;
+	static Timer timer;
 
 	//Se crean las listas de espera del dispatcher de 5 estados
 	public Dispatcher(){
@@ -23,6 +25,13 @@ public class Dispatcher {
 		this.recurso1 = new Recurso();
 		this.recurso2 = new Recurso();
 		
+	}
+	
+	
+	public void runProcess(){
+		Process process = running.get(0);
+		process.run();
+		freeProcess();
 	}
 	
 	
@@ -57,7 +66,7 @@ public class Dispatcher {
 		}
 	}
 	
-	public void freeProcess(String pName){
+	public void freeProcess(){
 		
 		//Hacer metodo LRU
 		
@@ -82,6 +91,7 @@ public class Dispatcher {
 				addMemory(process.getMemoryUse());
 				process.setState("Running");
 				readyQueue.remove(cont);
+				runProcess2();
 				break;
 			}else{
 				blockedQueue.add(process);
