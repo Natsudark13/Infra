@@ -6,7 +6,7 @@ public abstract class Process extends TimerTask {
 
 	protected int memoryUse;
 	protected int ID;
-	private static int IDCounter;
+	private static int IDCounter = 0;
 	protected String type;
 	protected int counter;
 	protected String state;
